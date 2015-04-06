@@ -1,0 +1,53 @@
+\subsection{Eight Cases For Coordinate Placement in a T1 Swap}
+
+\begin{enumerate}
+\item %1
+\textbf{Given:}\\
+I.x < Ip1.x AND I.y == Ip1.y
+\textbf{Then:}\\
+I $\mapsto$ mp + (0, -dy) AND Ip1 $\mapsto$ mp + (0, dy)
+
+\item %2
+\textbf{Given:}\\
+I.x > Ip1.x AND I.y == Ip1.y
+\textbf{Then:}\\
+I $\mapsto$ mp + (0, dy) AND Ip1 $\mapsto$ mp + (0, -dy)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item %3
+\textbf{Given:}\\
+I.x < Ip1.x AND I.y < Ip1.y
+\textbf{Then:}\\
+I $\mapsto$ mp + (dx, -dy) AND Ip1 $\mapsto$ mp + (-dx, dy)
+
+\item %4
+\textbf{Given:}\\
+I.x > Ip1.x AND I.y > Ip1.y
+\textbf{Then:}\\
+I $\mapsto$ mp + (-dx, dy) AND Ip1 $\mapsto$ mp + (dx, -dy)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item %5
+\textbf{Given:}\\
+I.x < Ip1.x AND I.y > Ip1.y
+\textbf{Then:}\\
+I $\mapsto$ mp + (-dx, -dy) AND Ip1 $\mapsto$ mp + (dx, dy)
+
+\item %6
+\textbf{Given:}\\
+I.x > Ip1.x AND I.y < Ip1.y
+\textbf{Then:}\\
+I $\mapsto$ mp + (dx, dy) AND Ip1 $\mapsto$ mp + (-dx, -dy)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item %7
+\textbf{Given:}\\
+I.x == Ip1.x AND I.y > Ip1.y
+\textbf{Then:}\\
+I $\mapsto$ mp + (dx, -dy) AND Ip1 $\mapsto$ mp + (-dx, dy)
+
+\item %8
+\textbf{Given:}\\
+I.x == Ip1.x AND I.y < Ip1.y
+\textbf{Then:}\\
+I $\mapsto$ mp + (dx, -dy) AND Ip1 $\mapsto$ mp + (-dx, dy)
+\end{enumerate}

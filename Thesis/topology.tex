@@ -1,0 +1,68 @@
+\chapter{Topological Considerations}
+
+\section{The Euler Characeteristic and An Interesting Proof}
+In this section I will expand upon some observations made in \cite{Soap}. \textbf{Euler's Formula} is an equation which relates the number of edges, faces, and vertices in a graph or polyhedron. An invariant $\chi$ relates the faces, edges, and vertices as follows:
+
+\begin{equation}
+\chi = V - F + E
+\end{equation}
+
+The invariant depends upon the graph or polyhedron in question. We will ignore the exact value of $\chi$ and comfort ourselves with the fact that it is a constant. The majority or current vertex dynamics models assume that vertices will have a coordination number of 3, and are based upon empirical results from biology. While there are certain models which consider \emph{rosettes}, for now we will assume that all vertices connect to exactly three other vertices. Then we notice that all edges have two vertices, and that all vertices are connected to three edges. Inititally, our intuition tells us that there should be three times as many edges as vertices, which leads us to the incorrect:
+\begin{equation}
+3V = E
+\end{equation}
+But then we notice that if we consider all of the vertices in the mesh, we count each edge twice, so we divide the conjectured  number of edges by two and then simplify to get:
+\begin{equation}
+3V = 2E
+\end{equation}
+
+Similarly, if we consider how to relate the number of edges to the faces in the mesh, we conjecture that the number of edges in equal to the number of cells with 3 sides plus the number of cells with 4 sides plus the number of cells with 5 sides plus . . . each multiplied by the number of edges per cell. THis gives us:
+\begin{equation}
+\sum_{k=3}^N kF_k = E
+\end{equation}
+Where $N$ is the highest number of edges encountered by any cell in the mesh. But in this way we have again counted all of the edges twice, so the true number of edges must be the summation above divided by 2. We simplify the equation to :
+\begin{equation}
+\sum_{k=3}^N kF_k = 2E
+\end{equation}
+
+Now, we are able to reduce Euler's Forula to one variable using the relationships given above.
+\begin{gather}
+V - F + E = \chi\\
+\frac{2E}3 - F + E = \chi\\
+\frac{5E}3 - F = \chi\\
+\frac{\sum_{k=3}^N kF_k}{6} - F = \chi\\
+(\frac{\sum_{k=3}^N kF_k}{F} - 6)F = 6\chi
+\end{gather}
+Biological cells are very small, and epithelial tissue is composed of many [NUMBER?] cells, so we assume that $F\to\infty$ and then immediately notice that the expression in parentheses must tend to zero as F goes to infinity, or else the left hand side of the above equation will not approach the constant $6\chi$
+So we know that the algebraic mean of the number of vertices per face must be 6. Of course we have no reason at this point to assume a distribution which guarantees that the majority of cells in the tissue will have exactly six edges and will not, say consist of a mixture of 5 and 7 sided cells.
+
+Von Neumann proof that the cells will have 6 sides.
+
+\section{Topological Changes to the Mesh}
+Describe T1, T2, T3 processes.
+
+An interesting direction for further research is to investigate possible other topology-preserving mesh transformations. The T1, T2 and T3 swaps are currently held to be the only elementary topological changes which maintain the coordination number of three for each vertex.
+
+\subsection{The technical details of a T1 Swap}
+Here are the technical details of how a T1 Swap is implemented. While in principle the transformation is simple, in practice it is a bit challenging to effectively implement. 
+
+
+\subsection{The T1 Swap and Safety}
+The T1 swap is a discrete, and not a continuous process. Although the numerical integration of the equations of motion is also a discrete process, we ensure through a careful choice of stepsize that the integration does not cause edges of one cell to spill over into another cell.
+
+\subsection{The T2 Swap}
+
+
+\section{An Additional Topological Change, and the Effects}
+These are the only topological changes mentioned in the literature. Why not another one?
+If these are the only ones which can happen, explain clearly why.
+
+\section{Why the Specified Topology Is Not Enough to Capture Nature}A recent paper describes how in nature vertices can have degree other than 3. 
+How frequent are these?  What effect will this have on the topological structure of the mesh?
+Is this specified in the literature?
+INSERT IMAGE OF ROSETTE
+
+
+\section{Biological Considerations}
+morphogens, modelling diffusion. 
+A mechanical or a chemical process

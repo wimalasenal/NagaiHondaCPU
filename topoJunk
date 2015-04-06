@@ -1,0 +1,60 @@
+void T1(vector<coordinate>& c_list, vector<cell>& simulation_cells, double delta)
+{
+/* Check all of the edges in the mesh */
+/* Loop over all cells */
+
+vector<int> verts = c->GetVertices();
+/* Loop over all verts in each cell, checking the edges*/
+for(vector<int>::iterator it = verts.begin(); it != verts.end(); ++it)
+{
+cout << *it << " ";
+}
+cout <<endl;
+for(vector<int>::iterator it = verts.begin(); it != verts.end(); ++it)
+{
+/* Deal with the full interior case first */
+/* Four cells will be affected */
+full_int == 0;
+coordinate prev = c_list.at((*it -1)%(verts.size()));
+coordinate curr = c_list.at(*it);
+coordinate next = c_list.at((*it+1)%(verts.size()));
+coordinate next_next = c_list.at((*it+2)%(verts.size()));
+if((curr.IsInner)&&(next.IsInner))
+full_int = 1;
+if((full_int)&&(len(curr, next) < delta)) /* Then check the length */
+{
+/* Find which cells are affected by this edge. */
+/* The four involved cells will be:
+* 1) The current cell with the small edge.
+* 2) The other cell involving both of these two vertices.
+* 3) The cell involving (i-1) and (i)
+* 4) The cell involving (i+1) and (i+2)
+*/
+cell c2, c3, c4;
+/* We have already identified the cell (1). It is called c.*/
+/* Find other cells */
+int c_idx = c->GetIndex();
+for(vector<cell>::iterator c_search = simulation_cells.begin(); \
+c_search != simulation_cells.end(); ++c_search)
+{
+/* We could make a function called contains_both() */
+if((c_search->GetIndex() != c_idx)&&(c_search->ContainsVertex(curr.index))&&(c_search->ContainsVertex(next.index)))
+{
+vector<int>::iterator itr = find(c_search->GetVertices().begin(), c_search->GetVertices().end(), *it);
+c_search->EraseVert(itr); /* We have c2 */
+}
+if((c_search->GetIndex() != c_idx)&&(c_search->ContainsVertex(prev.index))&&(c_search->ContainsVertex(curr.index)))
+{
+c3 = *c_search; /* We have c3 */
+}
+if((c_search->GetIndex() != c_idx)&&(c_search->ContainsVertex(next.index))&&(c_search->ContainsVertex(next_next.index)))
+{
+c4 = *c_search; /* We have c4 */
+}
+}
+/* Erase the element from the current cell. */
+c->EraseVert(it); // This will erase the vertex from the global value for c.
+}
+}
+}
+}

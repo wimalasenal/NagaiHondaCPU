@@ -1,0 +1,38 @@
+\documentclass[11pt]{report}
+
+%  This is for the main document
+\usepackage[margin=1in]{geometry}
+\usepackage[hyphens]{url}
+\usepackage{graphicx}
+\usepackage{sectsty}
+\usepackage{changepage}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{amsmath}
+% The title. Would Be Better If It Were A Humorous Title
+\title{\textbf{Vertex Dynamics and Topology of Epithelial Tissue}}
+\author{Melvyn Drag}
+\date{\today}
+% Some section formatting
+\setlength\parindent{0pt}
+\sectionfont{\normalfont\sffamily\large\bfseries\sectionrule{3ex}{0pt}{-1ex}{1pt}}
+\subsectionfont{\normalfont\sffamily\center\small\itshape}
+\begin{document}
+\maketitle
+\clearpage
+\tableofcontents{}
+\input{./abstract.tex}
+\input{./why.tex}
+\input{./overview.tex}
+\input{./biology.tex}
+\input{./topology.tex}
+\input{./dataStructAlgo.tex}
+\input{./t1.tex}
+\input{./numerical.tex}
+\input{./appendix.tex}
+\input{./bib.tex}
+
+
+
+\end{document}

@@ -1,0 +1,4 @@
+# This file contains number of gamma changes, followed by the number of area changes, followed by the indices and new values
+0 2
+13 0
+20 0
