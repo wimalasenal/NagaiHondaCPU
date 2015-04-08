@@ -31,7 +31,7 @@ void cell::InsertVert(int v1, int v2)
   //std::cout << "Before InsertVert" << std::endl;
   //for (auto c : m_AssociatedVertices)
 	//std::cout << c << std::endl;
-  std::cout << "v1, v2 " << v1 << " " << v2 << std::endl;
+  //  std::cout << "v1, v2 " << v1 << " " << v2 << std::endl;
 		std::vector<int>::iterator after_this = find(m_AssociatedVertices.begin(), m_AssociatedVertices.end(), v1);
 		if(after_this != m_AssociatedVertices.end())
 			m_AssociatedVertices.insert(next(after_this), v2);
@@ -43,7 +43,7 @@ void cell::InsertVert(int v1, int v2)
 	//std::cout << c << std::endl;
 
 
-		std::cout << "After InsertVert" << std::endl;
+		//		std::cout << "After InsertVert" << std::endl;
 
 }
 

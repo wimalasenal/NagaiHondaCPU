@@ -1,13 +1,12 @@
 11 # Dimension of mesh MUST BE ODD!!!!
-1 # Plot the energy in the system? [1/0]
-1 # Make a movie in the end? [1/0]
-0.1 # Maximum step size
-1000 # Number of iterations
+1 # Make plots of interesting quantities? [1/0]
+0 # Make a movie in the end? [1/0]
+0.0001 # Maximum step size
+10000 # Number of iterations
 10 # frequency of OFF file output. Must be a multiple 10!
 .1 # delta minimum vertex separation.
 1000 # Max swaps
 1.5 # swap length
 2 # upper bound for random number generator which performs T1 swaps
-1 # Make a bar graph pf cell sides?
-	
+0 # Deprecated
 

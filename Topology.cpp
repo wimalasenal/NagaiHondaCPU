@@ -85,8 +85,8 @@ void T1_Swap(cell& c1, cell& c2, cell& c3, cell& c4, coordinate& I,
     double m = M_Perp(X[i] + epsilon, Y[i] + epsilon, X[ip1] - epsilon, Y[ip1]-epsilon);
 
 	double theta = atan(m);
-	std::cout << "m is " << m << std::endl;
-	std::cout << "theta is " << theta <<std::endl;
+	//std::cout << "m is " << m << std::endl;
+	//std::cout << "theta is " << theta <<std::endl;
     double dx = abs(0.7*delta*cos(theta));
     double dy = abs(0.7*delta*sin(theta));
 
@@ -159,7 +159,7 @@ void Perform_T1s(vector<cell>& sim_cells, vector<coordinate>& coords, double del
             if((curr.IsInner)&&(next.IsInner)&&\
 			   (len(curr_x, curr_y, next_x, next_y) < delta))
             {
-			    cout << "***************** STARTING T1 ***************************" <<endl;
+			  //cout << "***************** STARTING T1 ***************************" <<endl;
                 /* Find which cells are affected by this edge. */
                 /* The four involved cells will be:
                 * 1) The current cell with the small edge.

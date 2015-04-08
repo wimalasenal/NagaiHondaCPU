@@ -84,7 +84,7 @@ int main()
 	vector<cell> sim_cells;
 	hex_mesh(coords, sim_cells, n, X, Y);
     Random_T1s(sim_cells, coords, max_swaps, swap_len, swap_odds, X, Y);
-	// perturb_mesh(coords, sim_cells, n, num_perturb, X, Y);
+	perturb_mesh(coords, sim_cells, n, num_perturb, X, Y);
     ReadMeshChanges(sim_cells);
 	
 	for(auto c : sim_cells) 
@@ -177,6 +177,18 @@ int main()
 		Perform_T2s(sim_cells, coords, delta, X, Y);
 		Perform_T1s(sim_cells, coords, delta, X, Y);
 		
+		/*************** CHECK FOR GRAPHING ERRORS ********************/
+		for(auto c : sim_cells)
+		{
+		  vector<int> points = c.GetVertices();
+		  std::sort(points.begin(), points.end());
+		  for(int i = 1; i < points.size(); i++)
+			{
+			  if ((points.at(i) - points.at(i-1)) == 0)
+				cout << "cell contains duplicate vertices." << endl;
+			}
+		}
+		
         /**************** CALCULATE ENERGY IN THE MESH ****************/
 		energy = Energy(sim_cells, coords, X, Y);
 		PE << time << " " << energy << endl;
@@ -185,12 +197,6 @@ int main()
 	clkend = rtclock();
     t = clkend-clkbegin;
 	cout << "The computation finished in " << t << " seconds!" << endl;
-	/******************* MAKE THE ENERGY PLOT *************************/
-	if(print_e == 1)
-	{
-		cout << "Plotting the system energy..." << endl;
-		system("python plot_energy.py");
-	}
 	
 	/*********************** MAKE THE MOVIE ***************************/
 	if(make_movie == 1)
@@ -198,7 +204,9 @@ int main()
 		cout << "Making animation..." << endl;
 		system("bash Images/make_movie.sh");
 	}
-	/********************** FINAL HISTOGRAM ***************************/
+		
+	
+	/******************* MAKE THE PLOTS *************************/
 	histogram.clear();
 	histogram.insert(pair<int, int>(3, 0));	
 	histogram.insert(pair<int, int>(4, 0));
@@ -228,11 +236,27 @@ int main()
 	for(hist_it=histogram.begin(); hist_it!= histogram.end(); hist_it++)
 		histFile << hist_it->first << " " << hist_it->second << endl;
 	histFile.close();
-	if(make_graph == 1)
-	{
-		cout << "Making a bar graph..." << endl;
-		system("python bargraph.py");
-	}
+	
+	    ofstream areaFile;
+	    areaFile.open("area.txt");
+	    ofstream perimFile;
+	    perimFile.open("perim.txt");
+
+	    for (auto c: sim_cells)
+	    {
+		areaFile << c.ComputeArea(X, Y) << endl;
+		perimFile << c.ComputePerimeter(X, Y) << endl;
+	    }
+	    areaFile.close();
+if(print_e == 1)
+		{
+		  cout << "Plotting ..." << endl;
+		  system("python plot.py");
+		}
+	
+	
+
+
 	/****************************  DONE  ******************************/
 	cout << "\n*************Simulation Complete********************\n\n";
 

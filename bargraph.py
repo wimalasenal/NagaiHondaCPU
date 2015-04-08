@@ -10,7 +10,7 @@ sides1, num_cells1 = loadtxt('hist_data1.txt', unpack=1, usecols=[0,1])
 # to force both num_cells to have the sides from 3 to 10.
 
 fig = plt.figure(facecolor='white')
-ax1 = fig.add_subplot(111)
+ax1 = fig.add_subplot(221)
 
 N = len(sides0)
 ind = arange(N)  # the x locations for the groups
