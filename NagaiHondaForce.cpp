@@ -43,7 +43,7 @@ int NagaiHondaForce(std::vector<coordinate>& coords,
 
 			/* Verify that no vertex has moved too much */
 			dist = sqrt(pow(it->t_x, 2) + pow(it->t_y, 2));
-			if(dist >  0.5*delta)
+			if(dist >  0.25*delta)
 				return 0;
 		}
 

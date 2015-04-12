@@ -86,7 +86,6 @@ axarr[1,1].set_xlabel('Perimeter', fontsize=10)
 axarr[1,1].set_ylabel('Number of Cells', fontsize = 10)
 axarr[1,1].set_axis_bgcolor('white')
 #axarr[1,1].grid(b=0)
-print area
 Title = 'Target Area = ' + str(area)
-plt.suptitle('Target Area=4.0',  fontsize=16, fontweight='bold')
+plt.suptitle(Title, fontsize=16, fontweight='bold')
 plt.savefig('Images/graphs.png')

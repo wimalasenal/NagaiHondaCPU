@@ -1,6 +1,6 @@
 import os 
 
-gamma = [0, 0.1, 0.2, 1, 5, 10]
+gamma = [0, 0.1, 1, 10]
 beta = gamma
 lam = beta
 area = [1.0, 4.0, 10.0]

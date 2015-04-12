@@ -22,7 +22,7 @@
 #include "cell.hpp"
 #include "coordinate.hpp"
 
-const double swap_low_bd = 0.2;
+const double swap_low_bd = 0.2 ;
 
 using namespace std;
 
@@ -87,8 +87,8 @@ void T1_Swap(cell& c1, cell& c2, cell& c3, cell& c4, coordinate& I,
 	double theta = atan(m);
 	//std::cout << "m is " << m << std::endl;
 	//std::cout << "theta is " << theta <<std::endl;
-    double dx = abs(0.7*delta*cos(theta));
-    double dy = abs(0.7*delta*sin(theta));
+    double dx = abs(delta*cos(theta));
+    double dy = abs(delta*sin(theta));
 
 	double avg_c2_x = c2.avgx(X);
 	double avg_c2_y = c2.avgy(Y);
@@ -207,10 +207,6 @@ void Perform_T1s(vector<cell>& sim_cells, vector<coordinate>& coords, double del
 
 void Random_T1s(vector<cell>& sim_cells, vector<coordinate>& coords, int max_swaps, double swap_len, int swap_odds, double * X, double * Y)
 {
-    /* This function sniffs out the locations of the T1 swaps and
-    * performs them on the whole mesh. As of now this is a very
-    * 'brute force' algorithm. See Knuth, D. "Premature optimization
-    * is the root of all evil. That is my alibi. */
     int num_swaps = 0;
     for(vector<cell>::iterator c = sim_cells.begin(); c != sim_cells.end(); ++c)              //Go through every cell in the mesh
     {
@@ -242,7 +238,10 @@ void Random_T1s(vector<cell>& sim_cells, vector<coordinate>& coords, int max_swa
                 double next_next_y = Y[Ip2];             
                     
                 
-                if((curr.IsInner)&&(next.IsInner)&&(len(curr_x, curr_y, next_x, next_y) < swap_len)&&(len(curr_x, curr_y, next_x, next_y) > swap_low_bd*1.1)) // Then the edge is fully inside and it is critically small.
+                if((curr.IsInner)&&(next.IsInner)\
+				   &&(len(curr_x, curr_y, next_x, next_y) < swap_len))
+				  //&&(len(curr_x, curr_y, next_x, next_y) > swap_low_bd))
+				  // Then the edge is fully inside and it is critically small.
                 {
                     /* Find which cells are affected by this edge. */
                     /* The four involved cells will be:
