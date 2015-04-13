@@ -18,11 +18,10 @@
 #include <algorithm>
 #include <cassert>
 #include <random>
-
 #include "cell.hpp"
 #include "coordinate.hpp"
 
-const double swap_low_bd = 0.2 ;
+const double swap_low_bd = 0.1 ;
 
 using namespace std;
 
