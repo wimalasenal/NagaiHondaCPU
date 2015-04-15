@@ -15,20 +15,10 @@ x,y = loadtxt('energy.dat', unpack=1, usecols=[0,1])
 
 ax = fig.add_subplot(1, 1 , 1)
 ax.set_title('Energy')
-ax.set_xlim([0, 0.2])
-
+#ax.set_xlim([0.05, 0.08])
+#ax.set_ylim([2555, 2565])
 ax.plot(x, y)
-"""
-ax.spines['left'].set_position(('axes', 0.02))
-ax.spines['right'].set_color('none')
-ax.spines['bottom'].set_position(('axes', 0))
-ax.spines['top'].set_color('none')
-ax.spines['left'].set_smart_bounds(True)
-ax.spines['bottom'].set_smart_bounds(True)
-ax.xaxis.set_ticks_position('bottom')
-ax.yaxis.set_ticks_position('left')
-"""
-plt.savefig('Images/energy.png')
+plt.savefig('Images/jump.png')
 plt.show()
 ################################################
 #########     Make the bargraph    #############

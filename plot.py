@@ -1,14 +1,6 @@
 import matplotlib as mpl
-import seaborn as sns
 from numpy import *
 import matplotlib.pyplot as plt
-
-###############################################
-########## Set up axis and figure #############
-###############################################
-
-
-#fig.subplots_adjust(hspace=0.7, wspace=0.5)
 
 ################################################
 #########   Make the energy plot   #############
@@ -26,6 +18,7 @@ axarr.set_xlabel('Time', fontsize=10)
 axarr.set_ylabel('Energy', fontsize=10)
 axarr.set_axis_bgcolor('gainsboro')
 axarr.set_ylim([my-0.1*buffer, My])
+axarr.set_xlim([0, 0.10])
 axarr.set_axis_bgcolor('white')
 
 plt.savefig('Images/energy.png')
@@ -62,21 +55,12 @@ plt.savefig('Images/bargraph.png')
 ################################################
 
 fig, axarr = plt.subplots(1, 1, facecolor='white')
-fin = open("parameters.hpp", 'r')
-for i in range(3):
-    junk = fin.readline()
-beta = fin.readline().split()[4]
-lam = fin.readline().split()[4]
-junk = fin.readline()
-area = fin.readline().split()[4]
-gamma = fin.readline().split()[4]
-fin.close()
 
 # Make area plot
 a = open('area.txt').read().splitlines()
 data = map(float, a)
 axarr.hist(data, 10)
-Title = 'Equilibrium Area'#: beta = ' + beta + '\nlambda = ' + lam + ' gamma = ' + gamma
+Title = 'Equilibrium Area'
 axarr.set_title(Title, fontsize=12, fontweight='bold')
 axarr.set_xlabel('Area', fontsize=10)
 axarr.set_ylabel('Number of Cells', fontsize = 10)
@@ -87,7 +71,7 @@ fig, axarr = plt.subplots(1, 1, facecolor='white')
 p = open('perim.txt').read().splitlines()
 data = map(float, p)
 axarr.hist(data, 10)
-Title = 'Equilibrium Perimeter' #: beta = ' + beta + '\nlambda = ' + lam + ' gamma = ' + gamma
+Title = 'Equilibrium Perimeter'
 axarr.set_title(Title, fontsize=12, fontweight='bold')
 axarr.set_xlabel('Perimeter', fontsize=10)
 axarr.set_ylabel('Number of Cells', fontsize = 10)
