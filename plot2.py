@@ -1,5 +1,4 @@
 import matplotlib as mpl
-import seaborn as sns
 from numpy import *
 import matplotlib.pyplot as plt
 
@@ -7,29 +6,30 @@ import matplotlib.pyplot as plt
 ########## Set up axis and figure #############
 ###############################################
 
-
-#fig.subplots_adjust(hspace=0.7, wspace=0.5)
-
 ################################################
 #########   Make the energy plot   #############
 ################################################
+fig = plt.figure(facecolor='white')
 
-fig, axarr = plt.subplots(1, 1, facecolor='white')
 x,y = loadtxt('energy.dat', unpack=1, usecols=[0,1])
-my = min(y)
-My = max(y)
-buffer = My - my
 
-axarr.plot(x,y, c='black')#, label='Energy (Unitless)')
-axarr.set_title("Energy in the mesh", fontsize=12, fontweight='bold')    
-axarr.set_xlabel('Time', fontsize=10)
-axarr.set_ylabel('Energy', fontsize=10)
-axarr.set_axis_bgcolor('gainsboro')
-axarr.set_ylim([my-0.1*buffer, My])
-axarr.set_axis_bgcolor('white')
+ax = fig.add_subplot(1, 1 , 1)
+ax.set_title('Energy')
+ax.set_xlim([0, 0.2])
 
+ax.plot(x, y)
+"""
+ax.spines['left'].set_position(('axes', 0.02))
+ax.spines['right'].set_color('none')
+ax.spines['bottom'].set_position(('axes', 0))
+ax.spines['top'].set_color('none')
+ax.spines['left'].set_smart_bounds(True)
+ax.spines['bottom'].set_smart_bounds(True)
+ax.xaxis.set_ticks_position('bottom')
+ax.yaxis.set_ticks_position('left')
+"""
 plt.savefig('Images/energy.png')
-
+plt.show()
 ################################################
 #########     Make the bargraph    #############
 ################################################

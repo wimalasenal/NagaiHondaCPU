@@ -84,7 +84,7 @@ int main()
 	vector<cell> sim_cells;
 	hex_mesh(coords, sim_cells, n, X, Y);
     Random_T1s(sim_cells, coords, max_swaps, swap_len, swap_odds, X, Y);
-	perturb_mesh(coords, sim_cells, n, num_perturb, X, Y);
+	//	perturb_mesh(coords, sim_cells, n, num_perturb, X, Y);
     ReadMeshChanges(sim_cells);
 	
 	for(auto c : sim_cells) 

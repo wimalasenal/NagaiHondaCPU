@@ -213,7 +213,7 @@ void Random_T1s(vector<cell>& sim_cells, vector<coordinate>& coords, int max_swa
 			std::mt19937 eng(rd()); // seed the generator
 			std::uniform_int_distribution<> distr(0, swap_odds); // define the range
 			int should_swap = distr(eng);
-			if((should_swap == 1)&&(c->GetNumSides() > 3))
+			if(should_swap == 1 && c->GetNumSides() > 3 && num_swaps < max_swaps)
 			{
 				vector <int> verts = c->GetVertices(); 
                 int Im1 = verts.at(0);                                     // These are the indices 
