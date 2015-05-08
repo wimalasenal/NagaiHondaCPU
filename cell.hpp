@@ -16,6 +16,8 @@
 #include "coordinate.hpp"
 #include "parameters.hpp"
 
+const double pi = 3.1415;
+
 class cell
 {
 public:

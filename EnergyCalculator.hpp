@@ -15,7 +15,7 @@ double Distance(coordinate a, coordinate b)
 	return sqrt(pow((a.x - b.x),2)+pow((a.y - b.y),2));
 }
 
-double Energy(vector<cell> simulation_cells, vector<coordinate> coordinate_list, double * X, double * Y)
+double Energy(vector<cell> simulation_cells, vector<coordinate> coordinate_list, double * X, double * Y, double beta, double lambda)
 {
 	int curr_vert, next_vert;
 	double my_gamma, other_gamma, avg_gamma;

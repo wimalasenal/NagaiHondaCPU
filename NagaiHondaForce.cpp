@@ -26,7 +26,7 @@ using std::sqrt;
 
 int NagaiHondaForce(std::vector<coordinate>& coords,
 	 std::vector<cell>& sim_cells, double step, double delta, double * X,
-     double * Y, double *TX, double * TY)
+		    double * Y, double *TX, double * TY, double beta, double lambda)
 {	
 	/* Calculate the new vertex positions*/
 	double dist = 0;
@@ -36,8 +36,8 @@ int NagaiHondaForce(std::vector<coordinate>& coords,
 		if(it->IsInner)
 		{
 			std::vector<int> assoc_cells = GetCells(it->index, sim_cells);
-			std::vector<double> area_force = AreaForce(it->index, sim_cells, assoc_cells, coords, X, Y);
-			std::vector<double> per_adh_force = PerAdhForce(it->index, sim_cells, assoc_cells, coords, X, Y);
+			std::vector<double> area_force = AreaForce(it->index, sim_cells, assoc_cells, coords, X, Y, lambda);
+			std::vector<double> per_adh_force = PerAdhForce(it->index, sim_cells, assoc_cells, coords, X, Y, beta);
 			TX[it->index] = step * (area_force.at(0) + per_adh_force.at(0));
 			TY[it->index] = step * (area_force.at(1) + per_adh_force.at(1));
 
