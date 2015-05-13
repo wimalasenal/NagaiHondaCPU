@@ -3,8 +3,9 @@
 #include <algorithm>
 #include "cell.hpp"
 #include "coordinate.hpp"
+#include "parameters.hpp"
 
-std::vector<double> AreaForce(int current_vertex, std::vector<cell> simulation_cells,  std::vector<int> Associated_Cells, std::vector<coordinate> coordinates, double* X, double* Y, lambda )
+std::vector<double> AreaForce(int current_vertex, std::vector<cell> simulation_cells,  std::vector<int> Associated_Cells, std::vector<coordinate> coordinates, double* X, double* Y)
 {
   // We can make this faster by storing the cell data in Associated_Cells, 
   // And passing around a couple of cells in the vector instead of passing

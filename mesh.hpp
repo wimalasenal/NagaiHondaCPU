@@ -137,7 +137,7 @@ void hex_mesh(std::vector<coordinate> & coordinate_list, \
 		vl.push_back(N + 2*vpr + 1);
 		vl.push_back(N + 2*vpr);
 		vl.push_back(N + vpr);
-		simulation_cells.push_back(cell(cc_idx, vl, t_area, t_gamma));
+		simulation_cells.push_back(cell(cc_idx, vl));
 		cc_idx++;
 	}
 	// Generate the cells int the subsequent rows
@@ -155,7 +155,7 @@ void hex_mesh(std::vector<coordinate> & coordinate_list, \
 				vl.push_back(vert + 2*vpr + 1);
 				vl.push_back(vert + 2*vpr);
 				vl.push_back(vert + vpr);
-				simulation_cells.push_back(cell(cc_idx, vl, t_area, t_gamma));
+				simulation_cells.push_back(cell(cc_idx, vl));
 				cc_idx++;
 			}
 		}
@@ -171,7 +171,7 @@ void hex_mesh(std::vector<coordinate> & coordinate_list, \
 				vl.push_back(vert + 2*vpr + 1);
 				vl.push_back(vert + 2*vpr);
 				vl.push_back(vert + vpr);
-				simulation_cells.push_back(cell(cc_idx, vl, t_area, t_gamma));
+				simulation_cells.push_back(cell(cc_idx, vl));
 				cc_idx++;
 			}
 		}

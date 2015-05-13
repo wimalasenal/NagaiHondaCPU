@@ -24,7 +24,7 @@ using namespace std;
 
 void ReadConfig(int&, int&, int&, double&, int&, double&, int&, int&, double&, int&);
 void ReadMeshChanges(vector<cell>&);
-void ReadParams(double&, double&, double&, double&)
+
 
 // This is for timing the code.
 double clkbegin, clkend;
@@ -42,15 +42,13 @@ double rtclock()
 
 int main()
 {	
-	/***************** READ CONFIG, PARAM FILES  ************************/
+	/***************** READ CONFIGURATION FILE ************************/
 	int n, print_all, make_movie, num_perturb, num_iters, out_freq;
 	int max_swaps, swap_odds;
 	double step, energy, delta, dt, swap_len; 
 	double time = 0;
 	ReadConfig(n, print_all, make_movie, step, num_iters, delta, out_freq, \
 			   max_swaps, swap_len, swap_odds);
-	double beta, lambda, t_area, t_gamma;
-	ReadParams(beta, lambda, t_area, t_gamma);
 	
     /**************** CONSTRUCT THE X AND Y ARRAYS ********************/
     double X[9*n*n]; //Oversized array because too tired to calculate how many cells are in a square mesh. This could be tightened, and must be modified for future mesh designs.
@@ -100,7 +98,7 @@ int main()
 		proceed = 0;
 		while (proceed == 0)
 		{
-		     proceed = NagaiHondaForce(coords, sim_cells, dt, delta, X, Y, TX, TY, beta, lambda);
+			proceed = NagaiHondaForce(coords, sim_cells, dt, delta, X, Y, TX, TY);
 			dt = dt/2; // If any vertex moved too much, halve the step size.
 		}
 		time += dt;
@@ -110,7 +108,7 @@ int main()
 		Perform_T1s(sim_cells, coords, delta, X, Y);
 		
         /**************** CALCULATE ENERGY IN THE MESH ****************/
-		energy = Energy(sim_cells, coords, X, Y, beta, lambda);
+		energy = Energy(sim_cells, coords, X, Y);
 		PE << time << " " << energy << endl;
 		
 	}
@@ -190,15 +188,3 @@ void ReadMeshChanges(vector<cell>& sim_cells)
         sim_cells[index].SetTargetArea(parameter);
     }
 }
-
-void ReadParams(double& beta, double& lambda, double& t_area, double& t_gamma)
-{
-    ifstream params("parameters.txt");
-    int num_params = 4; // There are four parameters in the paramters file. NEVER use magic numbers in a code.
-    string comment;
-    getline(params, comment);
-    params >> beta;
-    params >> lambda;
-    params >> t_area;
-    params >> t_gamma;
-} 

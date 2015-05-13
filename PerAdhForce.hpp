@@ -11,6 +11,7 @@
 #include "cell.hpp"
 #include "coordinate.hpp"
 #include <math.h>
+#include "parameters.hpp"
 
 double ReciprocalDistance(double x1, double y1, double x2, double y2)
 {
@@ -19,7 +20,7 @@ double ReciprocalDistance(double x1, double y1, double x2, double y2)
 }
 
 std::vector<double> PerAdhForce(int current_vertex, std::vector<cell> sim_cells, \
-				std::vector<int> Associated_Cells, std::vector<coordinate> coordinates, double* X, double *Y, double beta)
+	std::vector<int> Associated_Cells, std::vector<coordinate> coordinates, double* X, double *Y)
 {
 	std::vector<double> force_vec{0, 0};
 	for(std::vector<int>::iterator it = Associated_Cells.begin(); it != Associated_Cells.end(); ++it)
