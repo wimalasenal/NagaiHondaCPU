@@ -10,16 +10,15 @@
 class coordinate
 {
 public:
-	coordinate(int idx, double X, double Y, bool t, double tx = 0.0, double ty = 0.0) : x(X), y(Y), index(idx), IsInner(t), t_x(tx), t_y(ty){};
-	coordinate(double X, double Y){x = X; y = Y;};
-	coordinate(){x = 100000; y = 100000; index = -1; IsInner = 0; t_x = 0.0; t_y = 0.0;};
-	double x; 
-	double y;
-	void SetXY(double X, double Y){x = X; y = Y;};
-	double t_x, t_y;
+	coordinate(int idx, bool t) : index(idx), IsInner(t){};
+	coordinate(){index = -1; IsInner = 0;};
 	int index;
 	bool IsInner;
 	inline bool operator==(const coordinate& rhs){return index == rhs.index;};
+  void operator=(const coordinate &C)
+  {
+    index = C.index;
+    IsInner = C.IsInner;
+  }
 };
-
 #endif

@@ -14,12 +14,13 @@
 #include <fstream>
 #include <algorithm>
 #include "coordinate.hpp"
-#include "parameters.hpp"
+
+const double pi = 3.1415;
 
 class cell
 {
 public:
-	cell(int index, std::vector<int> AssociatedVertices, double target_area = t_area, double gamma = t_gamma)
+	cell(int index, std::vector<int> AssociatedVertices, double target_area, double gamma)
 	{	
 		assert(index >= 0);
 		m_AssociatedVertices = AssociatedVertices;

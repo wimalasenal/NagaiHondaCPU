@@ -51,12 +51,10 @@ axarr.set_axis_bgcolor('white')
 plt.savefig('Images/bargraph.png')
 
 ################################################
-#####     Make the area/perim graphs    ########
+#####         Make the area graph       ########
 ################################################
 
 fig, axarr = plt.subplots(1, 1, facecolor='white')
-
-# Make area plot
 a = open('area.txt').read().splitlines()
 data = map(float, a)
 axarr.hist(data, 10)
@@ -66,6 +64,11 @@ axarr.set_xlabel('Area', fontsize=10)
 axarr.set_ylabel('Number of Cells', fontsize = 10)
 axarr.set_axis_bgcolor('white')
 plt.savefig('Images/area.png')
+
+
+################################################
+#####       Make the perimeter graph    ########
+################################################
 
 fig, axarr = plt.subplots(1, 1, facecolor='white')
 p = open('perim.txt').read().splitlines()

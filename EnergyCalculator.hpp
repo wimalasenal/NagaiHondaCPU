@@ -9,13 +9,13 @@ Calculate the energy in the mesh at any timestep.
 
 using namespace std;
 
-double Distance(coordinate a, coordinate b)
+double Distance(double x1, double y1, double x2, double y2)
 {
 	// This function calculates the reciprocal distance needed in the calculation of the gradients.
-	return sqrt(pow((a.x - b.x),2)+pow((a.y - b.y),2));
+	return sqrt(pow((x1 - x2),2)+pow((y1 - y2),2));
 }
 
-double Energy(vector<cell> simulation_cells, vector<coordinate> coordinate_list, double * X, double * Y)
+double Energy(vector<cell> simulation_cells, vector<coordinate> coordinate_list, double * X, double * Y, double beta, double lambda)
 {
 	int curr_vert, next_vert;
 	double my_gamma, other_gamma, avg_gamma;
@@ -43,7 +43,9 @@ double Energy(vector<cell> simulation_cells, vector<coordinate> coordinate_list,
 			}
 			// Should make a ContainsEdge() function for cells.
 			coordinate v1 = coordinate_list.at(curr_vert);
-			coordinate v2 = coordinate_list.at(next_vert); 
+			coordinate v2 = coordinate_list.at(next_vert);
+            double v1x = X[curr_vert]; double v1y = Y[curr_vert];
+            double v2x = X[next_vert]; double v2y = Y[next_vert]; 
 			if((v1.IsInner)&&(v2.IsInner)) // If the edge is interior
 			{
 				my_gamma = it->GetGamma();
@@ -55,7 +57,7 @@ double Energy(vector<cell> simulation_cells, vector<coordinate> coordinate_list,
 						other_gamma = c.GetGamma();
 					}
 				}
-				energy += 0.5*(my_gamma + other_gamma)*Distance(v1, v2);
+				energy += 0.5*(my_gamma + other_gamma)*Distance(v1x, v1y, v2x, v2y);
 			}
 		}
 	}

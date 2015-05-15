@@ -9,7 +9,6 @@
 #include "coordinate.hpp"
 #include "cell.hpp"
 #include "NagaiHondaForce.hpp"
-#include "mesh.hpp"
 #include "printCellProperties.hpp"
 #include <stdlib.h>
 #include "EnergyCalculator.hpp"
@@ -18,13 +17,14 @@
 #include "MakePlots.hpp"
 #include <string.h>
 
-int iter_notification = 100; // How often to report on the current iteration? (So we know the code hasnt hit an infinite loop.)
+int iter_notification = 10; // How often to report on the current iteration? (So we know the code hasnt hit an infinite loop.)
 
 using namespace std;
 
 void ReadConfig(int&, int&, int&, double&, int&, double&, int&, int&, double&, int&);
+void ReadMesh(vector<cell>&, vector<coordinate>&, double*, double*, double, double);
 void ReadMeshChanges(vector<cell>&);
-
+void ReadParameters(double&, double&, double&, double&);
 
 // This is for timing the code.
 double clkbegin, clkend;
@@ -50,24 +50,36 @@ int main()
 	ReadConfig(n, print_all, make_movie, step, num_iters, delta, out_freq, \
 			   max_swaps, swap_len, swap_odds);
 	
+	/********************** READ PARAMETERS ***************************/
+	double beta, lambda, t_area, t_gamma;
+	ReadParameters(beta, lambda, t_area, t_gamma);
+	
     /**************** CONSTRUCT THE X AND Y ARRAYS ********************/
-    double X[9*n*n]; //Oversized array because too tired to calculate how many cells are in a square mesh. This could be tightened, and must be modified for future mesh designs.
-    double Y[9*n*n];
-    double TX[9*n*n];
-    double TY[9*n*n];
-    memset(X, 0, sizeof(X)); // Make the coordinate arrays.
-    memset(Y, 0, sizeof(Y)); // Using memset. This code deliberately mixed C, C++98 and C++14 styles to make sure I havent forgotten how they work.
+    double X[n], Y[n], TX[n], TY[n];
+    memset(X, 0, sizeof(X)); 
+    memset(Y, 0, sizeof(Y)); 
     memset(X, 0, sizeof(TX));
     memset(X, 0, sizeof(TY));
     
 	/************************ MAKE THE MESH ***************************/
-	vector<coordinate> coords; // Should be called "vertex", not coordinate. Early design decision and now too many files to correct.
+	vector<coordinate> coords; // Should be called "vertex", not coordinate. 
 	vector<cell> sim_cells;
-	hex_mesh(coords, sim_cells, n, X, Y);
-	Random_T1s(sim_cells, coords, max_swaps, swap_len, swap_odds, X, Y);
-	//perturb_mesh(coords, sim_cells, n, num_perturb, X, Y); // Sometimes results in heinously concave cells. We want convex cells.
-    ReadMeshChanges(sim_cells);
-	
+	ReadMesh(sim_cells, coords, X, Y, t_area, t_gamma);
+    //ReadMeshChanges(sim_cells);
+	cout << sim_cells.size() << endl;
+	for(int i = 0 ; i  < 4; i++)
+	{
+		if(coords.at(i).IsInner)
+			cout << X[i] << " " << Y[i] << endl;
+	}
+	vector<int> vs;
+	for(int i = 0; i < 3; i++)
+	{
+		vs = sim_cells.at(i).GetVertices();
+		for(auto v : vs)
+			cout << v << " ";
+		cout << endl;
+	}
     /******************** MAKE A HISTOGRAM ****************************/
     MakeHistogram("hist_data0.txt", sim_cells);
 	
@@ -98,17 +110,20 @@ int main()
 		proceed = 0;
 		while (proceed == 0)
 		{
-			proceed = NagaiHondaForce(coords, sim_cells, dt, delta, X, Y, TX, TY);
+			proceed = NagaiHondaForce(coords, sim_cells, dt, delta, X, Y, TX, TY, beta, lambda);
 			dt = dt/2; // If any vertex moved too much, halve the step size.
 		}
 		time += dt;
-        
+        X[2] += TX[2];
+		Y[2] += TY[2];
+		
+
 		/**************** PERFORM TOPOLOGICAL CHANGES *****************/
-		Perform_T2s(sim_cells, coords, delta, X, Y);
+		//Perform_T2s(sim_cells, coords, delta, X, Y);
 		Perform_T1s(sim_cells, coords, delta, X, Y);
 		
         /**************** CALCULATE ENERGY IN THE MESH ****************/
-		energy = Energy(sim_cells, coords, X, Y);
+		energy = Energy(sim_cells, coords, X, Y, beta, lambda);
 		PE << time << " " << energy << endl;
 		
 	}
@@ -187,4 +202,48 @@ void ReadMeshChanges(vector<cell>& sim_cells)
         changes >> index >> parameter;
         sim_cells[index].SetTargetArea(parameter);
     }
+}
+
+void ReadMesh(vector<cell>& sim_cells, vector<coordinate>& coords, double* X, double* Y, double t_area, double t_gamma)
+{
+/*
+ * This function will read in an OFF file, and then generate 
+ * a mesh from this file.
+ */
+	int nV, nC; // num verts, num cells.
+	int vpc, vert; // verts per cell, vertex index.
+	double x, y, z;
+	bool interior;
+	vector<int> vertVector;
+	string comment;
+	ifstream mesh("ic.txt"); //initial condition file.
+	mesh >> nV >> nC;
+	for(int v = 0; v < nV; v++)
+	{
+		mesh >> x >> y >> interior;
+		X[v] = x;
+		Y[v] = y;
+		coords.push_back(coordinate(v, interior));
+	}
+	for(int c = 0; c < nC; c++)
+	{
+		mesh >> vpc;
+		for(int v = 0; v < vpc; v++)
+		{
+			mesh >> vert;
+			vertVector.push_back(vert);
+		}
+		sim_cells.push_back(cell(c, vertVector, t_area, t_gamma));
+		vertVector.clear();
+	}
+	mesh.close();
+}
+void ReadParameters(double& beta, double& lambda, double& t_area, double& t_gamma)
+{
+	ifstream parameters("parameters.txt");
+	parameters >> beta;
+	parameters >> lambda;
+	parameters >> t_area;
+	parameters >> t_gamma;
+	parameters.close();
 }
