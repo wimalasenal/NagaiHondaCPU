@@ -1,6 +1,5 @@
 #include <vector>
 #include <cmath>
-#include "omp.h"
 #include "cell.hpp"
 #include "coordinate.hpp"
 /*

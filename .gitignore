@@ -3,3 +3,5 @@ simulation*/*
 *.gif
 *.off
 *.rgb
+*.o
+NagaiHondaModel

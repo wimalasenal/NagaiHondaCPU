@@ -8,7 +8,6 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
-#include <omp.h>
 #include <algorithm>
 #include "Get_Assoc_Cells.hpp"
 #include "AreaForce.hpp"
