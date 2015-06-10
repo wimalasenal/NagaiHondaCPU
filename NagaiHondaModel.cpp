@@ -58,8 +58,8 @@ int main()
     double X[n], Y[n], TX[n], TY[n];
     memset(X, 0, sizeof(X)); 
     memset(Y, 0, sizeof(Y)); 
-    memset(X, 0, sizeof(TX));
-    memset(X, 0, sizeof(TY));
+    memset(TX, 0, sizeof(TX));
+    memset(TY, 0, sizeof(TY));
     
 	/************************ MAKE THE MESH ***************************/
 	vector<coordinate> coords; // Should be called "vertex", not coordinate. 
